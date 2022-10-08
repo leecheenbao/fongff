@@ -1,5 +1,15 @@
 package fongff.util;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Component;
+
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Date;
@@ -8,29 +18,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-
 @Component
 public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
     private static final String CLAIMS_KEY_USER_ROLES = "userRoles";
 
-    private @Value("${jwt.signKey}") String jwtSignKey;
-    private @Value("${jwt.expireTimeAsSec}") long jwtExpireTimeAsSec;
+    private @Value("${jwt.signKey}")
+    String jwtSignKey;
+    private @Value("${jwt.expireTimeAsSec}")
+    long jwtExpireTimeAsSec;
 
-    public String createToken(String userName, List<String> userRoles){
-    	Map<String, Object> map = new HashMap<String, Object>();
-    	map.put(CLAIMS_KEY_USER_ROLES, userRoles);
-    	
+    public String createToken(String userName, List<String> userRoles) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put(CLAIMS_KEY_USER_ROLES, userRoles);
+
         String token = Jwts.builder()
                 .setSubject(userName)
                 .addClaims(map) // 把 userRoles 也記錄進來
@@ -47,7 +48,6 @@ public class JwtUtil {
      * 當 token 解析失敗時，會丟出對應的 Exception。一般來說會遇到失敗是因為 token 過期、token 內容被竄改。
      *
      * @param token
-     *
      * @return
      */
     private Claims parseToken(String token) {

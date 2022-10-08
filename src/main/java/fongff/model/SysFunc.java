@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -18,8 +15,16 @@ import java.util.Date;
 @Table(name = "sys_func", schema = "fongff")
 public class SysFunc {
 
-    @EmbeddedId
-    private SysFuncId sysFuncId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "indexR",nullable = false)
+    private Integer indexR;
+
+    @Column(name = "module", nullable = false)
+    private String module;
+
+    @Column(name = "category", nullable = false)
+    private String category;
 
     @Column(name = "image", nullable = false)
     private String image;

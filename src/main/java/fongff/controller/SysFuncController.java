@@ -1,11 +1,11 @@
 package fongff.controller;
 
+import fongff.dto.SysFuncDto;
+import fongff.mapper.SysFuncMapper;
 import fongff.model.SysFunc;
-import fongff.model.SysFuncId;
 import fongff.service.SysFuncService;
 import fongff.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,51 +28,47 @@ public class SysFuncController {
     @GetMapping("/content")
     public ResponseEntity<Map<String, Object>> getFunc() {
         Map<String, Object> respResult = new LinkedHashMap<>();
-        List<SysFunc> sysFuncs = sysFuncService.findAll();
-        respResult.put("data", sysFuncs);
+        List<SysFunc> sysFuncList = sysFuncService.findAll();
+        respResult.put("data", sysFuncList);
         return ResponseEntity.ok(respResult);
     }
 
-    @GetMapping("/content/{module}")
+    @GetMapping("/content/module/{module}")
     public ResponseEntity<Map<String, Object>> getFuncByModule(@PathVariable String module) {
         Map<String, Object> respResult = new LinkedHashMap<>();
-        List<SysFunc> sysFuncs = sysFuncService.findByModule(module);
-        respResult.put("data", sysFuncs);
+        List<SysFunc> sysFuncList = sysFuncService.findByModule(module);
+        respResult.put("data", sysFuncList);
         return ResponseEntity.ok(respResult);
     }
 
-    @GetMapping("/content/{module}/{indexR}")
-    public ResponseEntity<Map<String, Object>> getOne(@PathVariable String module, @PathVariable String indexR) {
+    @GetMapping("/content/{indexR}")
+    public ResponseEntity<Map<String, Object>> getOne(@PathVariable Integer indexR) {
         Map<String, Object> respResult = new LinkedHashMap<>();
-        SysFuncId sysFuncId = new SysFuncId();
-        sysFuncId.setModule(module);
-        sysFuncId.setIndexR(indexR);
-        SysFunc sysFunc = new SysFunc();
-        sysFunc = sysFuncService.findOne(sysFuncId);
+        SysFunc sysFunc = sysFuncService.findOne(indexR);
         respResult.put("data", sysFunc);
         return ResponseEntity.ok(respResult);
     }
 
 
     @PostMapping("/content")
-    public ResponseEntity<Map<String, Object>> uplaod
-            (Principal principal, @RequestParam(value = "file", required = false) MultipartFile file, @ModelAttribute SysFunc sysFunc) throws IOException {//1. 接受上傳的檔案 @RequestParam("file") MultipartFile file
+    public ResponseEntity<Map<String, Object>> addContent
+            (Principal principal, @RequestParam(value = "file", required = false) MultipartFile file, @ModelAttribute SysFunc sysFunc) throws IOException {
         Map<String, Object> respResult = new LinkedHashMap<>();
 
-        String module = sysFunc.getSysFuncId().getModule();
-        String indexR = sysFunc.getSysFuncId().getIndexR();
-        String image = sysFunc.getImage();
+        Integer indexR = sysFunc.getIndexR();
+        String module = sysFunc.getModule();
+        String category = sysFunc.getCategory();
         String title = sysFunc.getTitle();
         String content = sysFunc.getContent();
         String url = sysFunc.getUrl();
         if (file != null) {
             /* 檔案上傳 */
-            String filePath = uploadUtil.uploadFile(sysFunc.getSysFuncId(), file);
-            sysFunc.getSysFuncId().setModule(module);
-            sysFunc.getSysFuncId().setIndexR(indexR);
+            String filePath = uploadUtil.uploadFile(indexR, module, file);
+            sysFunc.setModule(module);
+            sysFunc.setIndexR(indexR);
             sysFunc.setImage(filePath);
-        }else{
-            uploadUtil.deleteFile(sysFunc.getSysFuncId());
+        } else {
+            uploadUtil.deleteFile(indexR, module);
         }
 
         sysFunc.setUrl(url);
@@ -80,11 +76,36 @@ public class SysFuncController {
         sysFunc.setContent(content);
         sysFunc.setAuth(principal.getName());
         sysFunc.setPostDate(new Date());
+        sysFunc.setCategory(category);
         sysFuncService.save(sysFunc);
 
-        respResult.put("message", HttpStatus.OK);
         respResult.put("data", sysFunc);
         return ResponseEntity.ok(respResult);
     }
 
+    @PutMapping("/content")
+    public ResponseEntity<Map<String, Object>> updateContent(Principal principal, @RequestParam(value = "file", required = false) MultipartFile file, @ModelAttribute SysFuncDto sysFuncDto) throws IOException {
+        Map<String, Object> respResult = new LinkedHashMap<>();
+        SysFunc sysFunc = SysFuncMapper.INSTANCE.sysFuncDtoToSysFunc(sysFuncDto);
+
+        Integer indexR = sysFuncDto.getIndexR();
+        String module = sysFunc.getModule();
+        String filePath = "";
+        if (file != null) {
+            /* 檔案上傳 */
+            filePath = uploadUtil.uploadFile(indexR, module, file);
+
+        } else {
+            filePath = sysFuncService.findOne(indexR).getImage();
+        }
+
+        sysFunc.setImage(filePath);
+        sysFunc.setPostDate(new Date());
+        sysFunc.setAuth(principal.getName());
+        sysFuncService.save(sysFunc);
+
+        sysFuncDto = SysFuncMapper.INSTANCE.sysFuncToSysFuncDto(sysFuncService.findOne(indexR));
+        respResult.put("data", sysFuncDto);
+        return ResponseEntity.ok(respResult);
+    }
 }

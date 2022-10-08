@@ -1,6 +1,5 @@
 package fongff.util;
 
-import fongff.model.SysFuncId;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +22,7 @@ public class UploadUtil {
     @Value("${file.realPath}")
     private String realPath;
 
-    public String uploadFile(SysFuncId sysFuncId, MultipartFile file) throws IOException {
-        String module = sysFuncId.getModule();
-        String indexR = sysFuncId.getIndexR();
+    public String uploadFile(Integer indexR, String module, MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             return null;
         }
@@ -44,9 +41,8 @@ public class UploadUtil {
         return finallPath;
     }
 
-    public void deleteFile(SysFuncId sysFuncId){
-        String module = sysFuncId.getModule();
-        String fileName = sysFuncId.getIndexR();
+    public void deleteFile(Integer indexR,String module) {
+        String fileName = String.valueOf(indexR);
         String filePath = path + File.separator + module + File.separator + fileName;
         File file = new File(filePath + File.separator);
         file.delete();
