@@ -4,8 +4,10 @@ import fongff.dto.SysFuncDto;
 import fongff.mapper.SysFuncMapper;
 import fongff.model.SysFunc;
 import fongff.service.SysFuncService;
+import fongff.util.CommonUtil;
 import fongff.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,9 @@ public class SysFuncController {
     private SysFuncService sysFuncService;
     @Autowired
     private UploadUtil uploadUtil;
+
+    @Value("${news.defultPath}")
+    private String newsDefultImg;
 
     @GetMapping("/content")
     public ResponseEntity<Map<String, Object>> getFunc() {
@@ -94,9 +99,14 @@ public class SysFuncController {
         if (file != null) {
             /* 檔案上傳 */
             filePath = uploadUtil.uploadFile(indexR, module, file);
-
         } else {
-            filePath = sysFuncService.findOne(indexR).getImage();
+            /* 如果前端沒有上傳file就使用前一張圖 */
+            SysFunc sysFuncOld = sysFuncService.findOne(indexR);
+            if (sysFuncDto.getCategory().equals("news")) {
+                filePath = CommonUtil.isNull(sysFuncOld.getImage()) ? null : newsDefultImg;
+            } else {
+                filePath = CommonUtil.isNull(sysFuncOld.getImage()) ? null : sysFuncOld.getImage();
+            }
         }
 
         sysFunc.setImage(filePath);
@@ -108,4 +118,6 @@ public class SysFuncController {
         respResult.put("data", sysFuncDto);
         return ResponseEntity.ok(respResult);
     }
+
+
 }

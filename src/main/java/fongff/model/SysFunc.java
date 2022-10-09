@@ -50,5 +50,4 @@ public class SysFunc {
     @Column(name = "states")
     private Integer states = 0;
 
-
 }
