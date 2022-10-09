@@ -14,8 +14,6 @@
 * Nginx
 * Tomcat
 
-### Screenshots
-
 ### Build
 
     mvn clean install
