@@ -1,5 +1,8 @@
 package fongff.model;
 
+import lombok.Data;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,10 +10,12 @@ import javax.persistence.Table;
 import java.util.StringJoiner;
 
 @Entity
-@Table(name = "user")
+@Data
+@ToString
+@Table(name = "account")
 public class User {
     public enum Role {
-        ROLE_USER, ROLE_ADMIN
+        ROLE_USER, ROLE_ADMIN, ROLE_DISABLE
     }
 
     @Id
@@ -20,6 +25,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "nickname")
+    private String nickname;
     @Column(name = "role")
     private Role role;
 

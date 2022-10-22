@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+
+<!-- Page Wrapper -->
+<div layout:fragment="content" id="wrapper">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="h3 mb-2 text-gray-800" th:text="新增帳號"></h1>
+                <p class="mb-4"></p>
+            </div>
+        </div>
+        <!-- register form -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr class="text-center">
+                            <th width="5%">#</th>
+                            <th>帳號</th>
+                            <th>暱稱</th>
+                            <th>權限</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="member,stat : ${memberList}">
+                            <td class="text-center" th:text="${stat.count}"></td>
+                            <td class="text-center" th:text="${member.name}"></td>
+                            <td class="text-center" th:text="${member.nickname}"></td>
+                            <td class="text-center" th:text="${member.role}"></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+
+</html>

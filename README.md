@@ -22,6 +22,21 @@
 ### 部署方式
 產出的war檔放至tomcat
 
+Building the project
+--------------------
+
+Clone the repository:
+
+    git clone https://github.com/kolorobot/spring-boot-thymeleaf
+
+Navigate to the newly created folder:
+
+    cd fongff
+
+Run the project with:
+
+    ./mvnw clean spring-boot:run
+
 
 
 

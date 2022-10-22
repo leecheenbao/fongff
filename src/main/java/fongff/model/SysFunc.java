@@ -41,8 +41,11 @@ public class SysFunc {
     @Column(name = "auth", nullable = false)
     private String auth;
 
+    @Column(name = "remark", nullable = false)
+    private String remark;
+
     @ApiModelProperty("更新時間-系統自增")
-    @Column(name = "postDate", nullable = false)
+    @Column(name = "postdate", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @CreationTimestamp
     private Date postDate;

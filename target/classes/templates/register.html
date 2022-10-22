@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+
+<!-- Page Wrapper -->
+<div layout:fragment="content" id="wrapper">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="h3 mb-2 text-gray-800" th:text="新增帳號"></h1>
+                <p class="mb-4"></p>
+            </div>
+        </div>
+        <!-- register form -->
+        <div>
+            <form th:action="@{/action/register}" th:method="post">
+                <div class="col-lg-6 form-group">
+                    <div>
+                        <label for="userName" class="col-form-label">帳號:</label>
+                        <input type="text" class="form-control" id="userName" name="userName">
+                    </div>
+                    <div>
+                        <label for="userPassword" class="col-form-label">密碼:</label>
+                        <input type="text" class="form-control" id="userPassword" name="userPassword">
+                    </div>
+                    <div style="display:none">
+                        <label for="userRole" class="col-form-label">腳色</label>
+                        <select class="form-control" id="userRole" name="userRole">
+                            <option value="ROLE_USER">一般使用者</option>
+                            <option value="ROLE_ADMIN">最高權限</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="submit" class="col-form-label btn btn-primary btn-user btn-block">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+
+</html>

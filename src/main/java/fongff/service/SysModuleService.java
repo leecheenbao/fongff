@@ -8,6 +8,8 @@ public interface SysModuleService {
 
 	List<SysModule> findAll();
 
+	List<SysModule> findByNormal(String role);
+
 	SysModule findOne(String id);
 
 	void save(SysModule sysModule);

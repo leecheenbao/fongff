@@ -14,4 +14,8 @@ public interface SysFuncRepository extends JpaRepository<SysFunc, String> {
     @Query(value = "select * from sys_func sf where module =:module", nativeQuery = true)
     List<SysFunc> findByModule(@Param("module") String module);
 
+    List<SysFunc> findByModuleAndCategory(String module,String category);
+
+    @Query(value = "select count(*)+1 from sys_func sf", nativeQuery = true)
+    Integer getLastIndexR();
 }
