@@ -10,10 +10,13 @@ public interface SysFuncService {
 
     List<SysFunc> findByModule(String module);
 
+    List<SysFunc> findByModuleAndCategory(String module,String category);
     SysFunc findOne(Integer indexR);
 
     void save(SysFunc sysFunc);
 
     void delete(SysFunc sysFunc);
+
+    Integer getLastIndexR();
 
 }

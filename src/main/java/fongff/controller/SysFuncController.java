@@ -27,7 +27,7 @@ public class SysFuncController {
     @Autowired
     private UploadUtil uploadUtil;
 
-    @Value("${news.defultPath}")
+    @Value("${news.defaultPath}")
     private String newsDefultImg;
 
     @GetMapping("/content")
@@ -40,6 +40,14 @@ public class SysFuncController {
 
     @GetMapping("/content/module/{module}")
     public ResponseEntity<Map<String, Object>> getFuncByModule(@PathVariable String module) {
+        Map<String, Object> respResult = new LinkedHashMap<>();
+        List<SysFunc> sysFuncList = sysFuncService.findByModule(module);
+        respResult.put("data", sysFuncList);
+        return ResponseEntity.ok(respResult);
+    }
+
+    @GetMapping("/content/module/{module}/{category}")
+    public ResponseEntity<Map<String, Object>> getFuncByModuleAndCategory(@PathVariable String module,@PathVariable String category) {
         Map<String, Object> respResult = new LinkedHashMap<>();
         List<SysFunc> sysFuncList = sysFuncService.findByModule(module);
         respResult.put("data", sysFuncList);

@@ -28,6 +28,11 @@ public class SysFuncServiceImpl implements SysFuncService {
     }
 
     @Override
+    public Integer getLastIndexR() {
+        return sysFuncRepository.getLastIndexR();
+    }
+
+    @Override
     public SysFunc findOne(Integer indexR) {
         return  sysFuncRepository.findByIndexR(indexR);
     }
@@ -40,6 +45,12 @@ public class SysFuncServiceImpl implements SysFuncService {
     @Override
     public List<SysFunc> findByModule(String module) {
         List<SysFunc> sysFuncs = sysFuncRepository.findByModule(module);
+        return sysFuncs;
+    }
+
+    @Override
+    public List<SysFunc> findByModuleAndCategory(String module, String category) {
+        List<SysFunc> sysFuncs = sysFuncRepository.findByModuleAndCategory(module,category);
         return sysFuncs;
     }
 

@@ -19,6 +19,12 @@ public class SysModule {
     @Column(name = "cname")
     public String cname;
 
+    @Column(name = "role")
+    public String role;
+
+    @Column(name = "url")
+    public String url;
+
     @OneToMany
 
     @Override

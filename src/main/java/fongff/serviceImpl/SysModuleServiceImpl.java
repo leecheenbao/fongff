@@ -24,6 +24,11 @@ public class SysModuleServiceImpl implements SysModuleService {
 	}
 
 	@Override
+	public List<SysModule> findByNormal(String role) {
+		return sysModuleRepository.findByRole(role);
+	}
+
+	@Override
 	public SysModule findOne(String id) {
 		SysModule sysModule = new SysModule();
 		Optional<SysModule> optional = sysModuleRepository.findById(id);

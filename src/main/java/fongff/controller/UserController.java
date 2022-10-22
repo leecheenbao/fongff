@@ -18,13 +18,13 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private UserServiceImpl userDao;
+    private UserServiceImpl userService;
 
     @GetMapping("/myInfo")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Map<String, User> myInfo(Principal principal) {
         String myName = principal.getName();
-        User user = userDao.findUser(myName);
+        User user = userService.findUser(myName);
 
         Map<String, User> respResult = new LinkedHashMap<>();
         respResult.put("myInfo", user);
@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping("/findUser/{userName}")
     @PreAuthorize("hasRole('ADMIN')")
     public Map<String, User> findUser(@PathVariable String userName) {
-        User user = userDao.findUser(userName);
+        User user = userService.findUser(userName);
 
         Map<String, User> respResult = new LinkedHashMap<>();
         respResult.put("user", user);
@@ -44,7 +44,7 @@ public class UserController {
     @GetMapping("/findAllUsers")
     @PreAuthorize("hasRole('ADMIN')")
     public Map<String, List<User>> findAllUsers() {
-        List<User> allUsers = userDao.findAllUsers();
+        List<User> allUsers = userService.findAllUsers();
 
         Map<String, List<User>> respResult = new LinkedHashMap<>();
         respResult.put("allUsers", allUsers);
