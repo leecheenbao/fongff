@@ -35,5 +35,7 @@ Run the project with:
     ./mvnw clean spring-boot:run
 
 
+![image](https://github.com/leecheenbao/fongff/blob/main/doc2.png)
 
+![image](https://github.com/leecheenbao/fongff/blob/main/doc1.png)
 
