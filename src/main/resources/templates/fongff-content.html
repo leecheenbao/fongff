@@ -58,10 +58,12 @@
                                                 <select class="form-control" id="new-module" name="module"
                                                         th:name="module">
                                                     <option th:each="module:${sysModuleList}"
-                                                            t th:if="${module.role eq 'normal'}"
+                                                            th:if="${module.role eq 'normal'}"
                                                             th:value="${module.id}"
                                                             th:text="${module.cname}"
-                                                            th:name="module"></option>
+                                                            th:name="module"
+                                                            th:selected="${module.id eq sysModule.id}">
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-4">
@@ -74,7 +76,16 @@
                                             <input type="text" class="form-control" id="new-url" name="url">
                                         </div>
 
-                                        <label class="mt-3 img-form">
+                                        <label class="mt-3 img-form" th:if="${sysModule.id eq 'A083'}">
+                                            <div th:text="請點擊選擇影音檔"></div>
+<!--                                            <audio controls>-->
+<!--                                                <source src="horse.ogg" type="audio/ogg">-->
+<!--                                                <source src="horse.mp3" type="audio/mpeg">-->
+<!--                                                Your browser does not support the audio element.-->
+<!--                                            </audio>-->
+                                            <input type="file" name="file" accept="video/*" class="upload">
+                                        </label>
+                                        <label class="mt-3 img-form" th:unless="${sysModule.id eq 'A083'}">
                                             <div th:text="請點擊選擇圖片"></div>
                                             <input type="file" name="file" accept="image/*" class="upload" style="display:none;">
                                             <img class="file-img pre-img">
@@ -188,7 +199,15 @@
                                                                 <input type="text" class="form-control" id="url-text" name="url" th:value="${list.url}">
                                                             </div>
 
-                                                            <label class="mt-3 img-form">
+                                                            <label class="mt-3 img-form" th:if="${sysModule.id eq 'A083'}">
+                                                                <div th:if="${list.image == null}" th:text="請點擊選擇影音檔"></div>
+                                                                <audio controls>
+                                                                    <source th:src="${list.image}" type="video/mp4">
+                                                                    Your browser does not support the audio element.
+                                                                </audio>
+                                                                <input type="file" name="file" accept="video/*" class="upload">
+                                                            </label>
+                                                            <label class="mt-3 img-form" th:unless="${sysModule.id eq 'A083'}">
                                                                 <div th:if="${list.image == null}" th:text="請點擊選擇圖片"></div>
                                                                 <input type="file" name="file" accept="image/*" class="upload" style="display:none;">
                                                                 <img class="file-img pre-img" th:src="${list.image}">
