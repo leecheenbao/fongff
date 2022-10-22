@@ -90,7 +90,7 @@ public class Action {
         user.setRole(User.Role.valueOf(userRole));
         user.setNickname(nickName);
         userServiceImpl.addUser(user);
-        return "redirect:/dashboard/module/index";
+        return "redirect:/dashboard/module/members";
     }
 
     @ApiOperation("新增物件內容")
@@ -170,11 +170,5 @@ public class Action {
         SysFunc sysFunc = sysFuncService.findOne(indexR);
         sysFuncService.delete(sysFunc);
         return "redirect:/dashboard/module/" + module;
-    }
-
-    @GetMapping("/test")
-    public String test() {
-        System.out.println("test");
-        return "test";
     }
 }
