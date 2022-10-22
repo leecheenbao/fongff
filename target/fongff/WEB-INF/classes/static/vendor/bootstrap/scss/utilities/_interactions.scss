@@ -1,5 +1,0 @@
-// stylelint-disable declaration-no-important
-
-@each $value in $account-selects {
-  .account-select-#{$value} { account-select: $value !important; }
-}
