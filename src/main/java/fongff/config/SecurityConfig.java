@@ -1,6 +1,8 @@
 package fongff.config;
 
 import fongff.handle.MyAccessDeniedHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,11 +14,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 // 若要自訂登入邏輯則要繼承 WebSecurityConfigurerAdapter
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
@@ -91,7 +95,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.tokenValiditySeconds(60); // 通常都會大於 session timeout 的時間
 		
 	}
-
-
 
 }

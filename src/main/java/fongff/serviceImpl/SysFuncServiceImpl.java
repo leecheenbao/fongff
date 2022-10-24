@@ -29,7 +29,7 @@ public class SysFuncServiceImpl implements SysFuncService {
 
     @Override
     public Integer getLastIndexR() {
-        return sysFuncRepository.getLastIndexR();
+        return sysFuncRepository.getLastIndexR()+1;
     }
 
     @Override
