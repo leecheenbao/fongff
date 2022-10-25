@@ -21,8 +21,8 @@ public class CorsConfig implements WebMvcConfigurer {
             public void addCorsMappings(CorsRegistry registry) {
                 logger.info("===== add Headers =====");
                 registry.addMapping("/**")
-                        .allowedOrigins("http://feifeistoryhouse.org/")
-//                        .allowedOriginPatterns("*")
+//                        .allowedOrigins("http://feifeistoryhouse.org/")
+                        .allowedOriginPatterns("*")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .exposedHeaders("access-control-allow-headers",
