@@ -8,6 +8,8 @@ public interface SysFuncService {
 
     List<SysFunc> findAll();
 
+    List<SysFunc> findByModuleAndStates(String module);
+
     List<SysFunc> findByModule(String module);
 
     List<SysFunc> findByModuleAndCategory(String module,String category);

@@ -43,6 +43,12 @@ public class SysFuncServiceImpl implements SysFuncService {
     }
 
     @Override
+    public List<SysFunc> findByModuleAndStates(String module) {
+        List<SysFunc> sysFuncs = sysFuncRepository.findByModuleAndStates(module);
+        return sysFuncs;
+    }
+
+    @Override
     public List<SysFunc> findByModule(String module) {
         List<SysFunc> sysFuncs = sysFuncRepository.findByModule(module);
         return sysFuncs;

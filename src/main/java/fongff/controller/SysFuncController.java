@@ -41,7 +41,7 @@ public class SysFuncController {
     @GetMapping("/content/module/{module}")
     public ResponseEntity<Map<String, Object>> getFuncByModule(@PathVariable String module) {
         Map<String, Object> respResult = new LinkedHashMap<>();
-        List<SysFunc> sysFuncList = sysFuncService.findByModule(module);
+        List<SysFunc> sysFuncList = sysFuncService.findByModuleAndStates(module);
         respResult.put("data", sysFuncList);
         return ResponseEntity.ok(respResult);
     }
@@ -49,7 +49,7 @@ public class SysFuncController {
     @GetMapping("/content/module/{module}/{category}")
     public ResponseEntity<Map<String, Object>> getFuncByModuleAndCategory(@PathVariable String module,@PathVariable String category) {
         Map<String, Object> respResult = new LinkedHashMap<>();
-        List<SysFunc> sysFuncList = sysFuncService.findByModule(module);
+        List<SysFunc> sysFuncList = sysFuncService.findByModuleAndCategory(module,category);
         respResult.put("data", sysFuncList);
         return ResponseEntity.ok(respResult);
     }
