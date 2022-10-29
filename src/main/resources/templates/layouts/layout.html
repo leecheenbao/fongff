@@ -21,7 +21,8 @@
     <link th:href="@{/static/vendor/bootstrap-fileinput/css/fileinput.css}" media="all" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
     <!-- ckeditor-->
-    <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+    <script th:src="@{/static/ckeditor/ckeditor.js}"></script>
+
 </head>
 
 <body id="page-top">
@@ -102,8 +103,6 @@
 
 <!-- sweetalert2 preview-->
 <script th:src="@{/static/vendor/sweetalert2/sweetalert2.all.min.js}"></script>
-<!-- image preview-->
-<script th:src="@{/static/js/jquery.file-preview.min.js}"></script>
 <!-- customer-->
 <script th:src="@{/static/js/customer.js}"></script>
 </html>
