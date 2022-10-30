@@ -44,6 +44,9 @@ public class SysFunc {
     @Column(name = "remark", nullable = false)
     private String remark;
 
+    @Column(name = "orderId",nullable = false)
+    private Integer orderId;
+
     @ApiModelProperty("更新時間-系統自增")
     @Column(name = "postdate", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

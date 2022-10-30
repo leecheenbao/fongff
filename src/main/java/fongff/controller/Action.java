@@ -72,7 +72,7 @@ public class Action {
             validateErrors.add("userName '" + userName + "' is exist");
         }
 
-        if("".equals(nickName)){
+        if ("".equals(nickName)) {
             validateErrors.add("nickName is empty");
         }
         List<String> allUserRoles = Stream.of(User.Role.values()).map(role -> role.toString())
@@ -98,7 +98,7 @@ public class Action {
     public String addContent(@RequestParam String module,
                              @RequestParam String title, @RequestParam String category,
                              @RequestParam String states, @RequestParam String content,
-                             @RequestParam String url, @RequestParam String remark,
+                             @RequestParam String url, @RequestParam String remark, @RequestParam Integer orderId,
                              @RequestParam(required = false) MultipartFile file, Model model, Principal principal) throws IOException {
 
         Integer indexR = sysFuncService.getLastIndexR();
@@ -112,10 +112,8 @@ public class Action {
         } else {
             /* 如果前端沒有上傳file就使用前一張圖 */
             SysFunc sysFuncOld = sysFuncService.findOne(indexR);
-            if (category.equals("news")) {
-                filePath = CommonUtil.isNull(sysFuncOld.getImage()) ? sysFuncOld.getImage() : newsDefultImg;
-            }
         }
+
         sysFunc.setImage(filePath);
         sysFunc.setUrl(url);
         sysFunc.setTitle(title);
@@ -125,6 +123,7 @@ public class Action {
         sysFunc.setPostDate(new Date());
         sysFunc.setCategory(category);
         sysFunc.setRemark(remark);
+        sysFunc.setOrderId(orderId);
         sysFuncService.save(sysFunc);
 
         return "redirect:/dashboard/module/" + module;
@@ -135,7 +134,7 @@ public class Action {
     public String updateContent(@RequestParam String module, @RequestParam Integer indexR,
                                 @RequestParam String title, @RequestParam String category,
                                 @RequestParam String states, @RequestParam String content,
-                                @RequestParam String url, @RequestParam String remark,
+                                @RequestParam String url, @RequestParam String remark, @RequestParam Integer orderId,
                                 @RequestParam(required = false) MultipartFile file, Model model, Principal principal) throws IOException {
 
         SysFunc sysFunc = new SysFunc();
@@ -159,6 +158,7 @@ public class Action {
         sysFunc.setPostDate(new Date());
         sysFunc.setCategory(category);
         sysFunc.setRemark(remark);
+        sysFunc.setOrderId(orderId);
         sysFuncService.save(sysFunc);
 
         return "redirect:/dashboard/module/" + module;

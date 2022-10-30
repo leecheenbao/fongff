@@ -36,16 +36,16 @@
                                 <div class="row">
                                     <div class="col-lg-6 form-group">
                                         <div>
-                                            <label for="new-remark" class="col-form-label">描述:</label>
+                                            <label for="new-remark" class="col-form-label">描述：</label>
                                             <input type="text" class="form-control" id="new-remark" name="remark">
                                         </div>
                                         <div>
-                                            <label for="new-title" class="col-form-label">標題:</label>
+                                            <label for="new-title" class="col-form-label">標題：</label>
                                             <input type="text" class="form-control" id="new-title" name="title">
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-4">
-                                                <label for="new-states" class="col-form-label">狀態:</label>
+                                            <div class="col-lg-3">
+                                                <label for="new-states" class="col-form-label">狀態：</label>
                                                 <div class="custom-control custom-switch">
                                                     <select class="form-control" id="new-states" th:name="states">
                                                         <option value="0" th:name="states">顯示</option>
@@ -53,8 +53,8 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">
-                                                <label for="new-module" class="col-form-label">module:</label>
+                                            <div class="col-lg-3">
+                                                <label for="new-module" class="col-form-label">module：</label>
                                                 <select class="form-control" id="new-module" name="module"
                                                         th:name="module">
                                                     <option th:each="module:${sysModuleList}"
@@ -66,9 +66,13 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-lg-4">
-                                                <label for="new-category" class="col-form-label">category:</label>
+                                            <div class="col-lg-3">
+                                                <label for="new-category" class="col-form-label">category：</label>
                                                 <input type="text" class="form-control" id="new-category" name="category">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label for="new-orderId" class="col-form-label">排序：</label>
+                                                <input type="number" max="999" min="0" required class="form-control" id="new-orderId" name="orderId">
                                             </div>
                                         </div>
                                         <div>
@@ -124,9 +128,10 @@
                             <th width="5%">#</th>
                             <th width="15%">描述</th>
                             <th width="25%">標題</th>
-                            <th width="15%">狀態</th>
+                            <th width="10%">狀態</th>
                             <th width="10%">Category</th>
                             <th width="10%">更改人</th>
+                            <th width="5%">排序</th>
                             <th width="10%">更新時間</th>
                             <th class="text-center" width="5%">詳情</th>
                             <th class="text-center" width="5%"></th>
@@ -143,8 +148,8 @@
                             </th>
                             <td class="text-center" width="10%" th:text="${list.category}"></td>
                             <td class="text-center" width="10%" th:text="${list.auth}"></td>
+                            <td class="text-center" width="5%" th:text="${list.orderId}"></td>
                             <td class="text-center" width="10%" th:text="${#dates.format(list.postDate, 'yyyy-MM-dd HH:mm')}"></td>
-
                             <td class="text-center" width="5%">
 
                                 <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target="'#info-'+${list.indexR}" th:onclick="'showInfo('+${list.indexR}+')'">info</button>
@@ -171,7 +176,7 @@
                                                                 <input type="text" class="form-control" id="recipient-name" name="title" th:value="${list.title}">
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-lg-4">
+                                                                <div class="col-lg-3">
                                                                     <label th:for="'customSwitches-'+${stat.count}" class="col-form-label">狀態:</label>
                                                                     <!-- Default switch -->
                                                                     <div class="custom-control custom-switch">
@@ -181,7 +186,7 @@
                                                                         </select>
                                                                     </div><!-- Default switch -->
                                                                 </div>
-                                                                <div class="col-lg-4">
+                                                                <div class="col-lg-3">
                                                                     <label for="url-module" class="col-form-label">module:</label>
                                                                     <select class="form-control" id="url-module" name="module"
                                                                             th:name="module">
@@ -189,9 +194,13 @@
                                                                                 th:value="${module.id}" th:text="${module.cname}" th:name="module"></option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-lg-4">
-                                                                    <label for="category-module" class="col-form-label">category:</label>
+                                                                <div class="col-lg-3">
+                                                                    <label for="category-module" class="col-form-label">category：</label>
                                                                     <input type="text" class="form-control" id="category-module" name="category" th:value="${list.category}">
+                                                                </div>
+                                                                <div class="col-lg-3">
+                                                                    <label for="orderId-module" class="col-form-label">排序：</label>
+                                                                    <input type="number" max="999" min="0" required class="form-control" id="orderId-module" name="orderId" th:value="${list.orderId}">
                                                                 </div>
                                                             </div>
                                                             <div>
