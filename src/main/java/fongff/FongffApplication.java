@@ -12,6 +12,7 @@ public class FongffApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(FongffApplication.class, args);
+//        test
     }
 
     @Override
