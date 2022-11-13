@@ -37,7 +37,7 @@
                                     <div class="col-lg-6 form-group">
                                         <div>
                                             <label for="new-remark" class="col-form-label">描述：</label>
-                                            <input type="text" class="form-control" id="new-remark" name="remark">
+                                            <input type="text" maxlength="100" class="form-control" id="new-remark" name="remark">
                                         </div>
                                         <div>
                                             <label for="new-title" class="col-form-label">標題：</label>
@@ -169,7 +169,7 @@
                                                         <div class="col-lg-6 form-group">
                                                             <div>
                                                                 <label for="remark" class="col-form-label">描述:</label>
-                                                                <input type="text" class="form-control" id="remark" name="remark" th:value="${list.remark}">
+                                                                <input type="text" class="form-control" id="remark" name="remark" maxlength="100" th:value="${list.remark}">
                                                             </div>
                                                             <div>
                                                                 <label for="recipient-name" class="col-form-label">標題:</label>
