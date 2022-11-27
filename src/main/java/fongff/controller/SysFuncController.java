@@ -3,7 +3,9 @@ package fongff.controller;
 import fongff.dto.SysFuncDto;
 import fongff.mapper.SysFuncMapper;
 import fongff.model.SysFunc;
+import fongff.model.SysLog;
 import fongff.service.SysFuncService;
+import fongff.service.SysLogService;
 import fongff.util.CommonUtil;
 import fongff.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
@@ -27,8 +30,23 @@ public class SysFuncController {
     @Autowired
     private UploadUtil uploadUtil;
 
+    @Autowired
+    private SysLogService sysLogService;
+
     @Value("${news.defaultPath}")
     private String newsDefultImg;
+
+    @GetMapping("/count")
+    public ResponseEntity<Map<String, Object>> getCount() {
+        Map<String, Object> respResult = new LinkedHashMap<>();
+
+        List<SysLog> daily = sysLogService.getDailyCount();
+        List<SysLog> total = sysLogService.getTotalCount();
+        respResult.put("dailyCount", daily.size());
+        respResult.put("totalCount", total.size());
+
+        return ResponseEntity.ok(respResult);
+    }
 
     @GetMapping("/content")
     public ResponseEntity<Map<String, Object>> getFunc() {
@@ -39,10 +57,24 @@ public class SysFuncController {
     }
 
     @GetMapping("/content/module/{module}")
-    public ResponseEntity<Map<String, Object>> getFuncByModule(@PathVariable String module) {
+    public ResponseEntity<Map<String, Object>> getFuncByModule(HttpServletRequest request, @PathVariable String module) throws Exception {
         Map<String, Object> respResult = new LinkedHashMap<>();
         List<SysFunc> sysFuncList = sysFuncService.findByModuleAndStates(module);
         respResult.put("data", sysFuncList);
+
+        if(module.equals("A03")){
+            String userIp = CommonUtil.getIP(request);
+
+            List<SysLog> sysLogs = sysLogService.getDailyCount();
+            String ip = CommonUtil.getIP(request);
+            SysLog sysLog = new SysLog();
+            sysLog.setPath(request.getServletPath());
+            sysLog.setCreateTime(new Date());
+            sysLog.setIp(ip);
+            if (sysLogService.findByIp(ip) == null) {
+                sysLogService.save(sysLog);
+            }
+        }
         return ResponseEntity.ok(respResult);
     }
 
