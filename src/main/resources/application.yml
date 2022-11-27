@@ -39,6 +39,6 @@ pagehelper:
 
 file:
   path: /data/tomcat/webapps/file
-  realPath: http://34.81.110.243:8081/file
+  realPath: https://feifeistoryhouse.org/file
 news:
-  defaultPath: http://34.81.110.243:8081/file/newEvent-bg.jpg
+  defaultPath: https://feifeistoryhouse.org/file/newEvent-bg.jpg
