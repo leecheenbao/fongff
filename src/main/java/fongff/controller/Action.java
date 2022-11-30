@@ -6,7 +6,6 @@ import fongff.security.UserDetialsServiceImpl;
 import fongff.service.SysFuncService;
 import fongff.service.SysModuleService;
 import fongff.serviceImpl.UserServiceImpl;
-import fongff.util.CommonUtil;
 import fongff.util.UploadUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +35,7 @@ import java.util.stream.Stream;
 public class Action {
     @Autowired
     private UploadUtil uploadUtil;
+
     @Value("${news.defaultPath}")
     private String newsDefultImg;
 
